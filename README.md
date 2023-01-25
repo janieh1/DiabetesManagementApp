@@ -12,10 +12,16 @@ give myself. At meal time, I have many things to consider:
 
 Also, I need to measure and keep track of my blood sugar at various points
 throughout the day to ensure it is not too high or too low.
-Having an app that would tell me how much insulin to give, 
-and that would also not only keep track of my blood sugar 
-readings but also **tell me my averages** would help greatly in 
-managing my diabetes.
+Having an app that would not only keep track of all my blood sugar 
+readings but also **calculate various stats** from these readings help greatly in 
+managing my diabetes. Some things it would calculate:
+
+- Average blood sugar - overall and separated for different times (fasting, before or after meals)
+- Time in range - for what percentage of inputs has my blood sugar been in the optimal range?
+- When my blood sugar is highest - is it higher on certain days of the week? Before or after a specific meal?
+
+This app could be used by myself and other diabetics to aid in management of the disease.
+
 
 ## User Stories
 
