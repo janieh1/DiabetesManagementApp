@@ -72,6 +72,14 @@ public class LogBookTest {
     }
 
     @Test
+    public void getValuesFromCatTest() {
+        ArrayList<Double> valuesFromCat = b2.getValuesInCategory("before meal");
+        assertEquals(3, valuesFromCat.size());
+        Double firstValue = valuesFromCat.get(0);
+        assertEquals(4.3, firstValue);
+    }
+
+    @Test
     public void calculateAverageInCategoryTest() {
         assertEquals((4.3 + 5.2 + 5.4) / 3.0, b2.calculateAverageOfCategory("before meal"), 0.0001);
         assertEquals(3.0, b2.calculateAverageOfCategory("fasting"), 0.0001);
