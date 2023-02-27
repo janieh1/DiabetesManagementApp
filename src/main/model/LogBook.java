@@ -11,7 +11,7 @@ public class LogBook {
     }
 
     // EFFECTS: gets list of readings in log book
-    public ArrayList getReadings() {
+    public ArrayList<BloodSugarReading> getReadings() {
         return readings;
     }
 
@@ -66,8 +66,8 @@ public class LogBook {
     }
 
     // REQUIRES: date is in the form YYYY-MM-DD
-    // EFFECTS: retrieves all reading value(s) on a given date
-    public ArrayList getReadingValuesAndTimeFromDay(String date) {
+    // EFFECTS: retrieves all readings from a given date
+    public ArrayList getReadingsFromDay(String date) {
         ArrayList readingsOnDate = new ArrayList<BloodSugarReading>();
         for (BloodSugarReading bsr : readings) {
             if (bsr.getDate().equals(date)) {
@@ -87,5 +87,13 @@ public class LogBook {
             }
         }
         return readingsFromCat;
+    }
+
+    // REQUIRES: list of readings is not empty
+    // MODIFIES: BloodSugarReading
+    // EFFECTS: adds notes to the last reading in the list (the most recently added)
+    public void addNotesToLastReading(String notes) {
+        BloodSugarReading bsr = readings.get(readings.size() - 1);
+        bsr.setNotes(notes);
     }
 }

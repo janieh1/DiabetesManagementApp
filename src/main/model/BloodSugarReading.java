@@ -11,6 +11,7 @@ public class BloodSugarReading {
     private LocalDate date;
     private LocalTime time;
     private String category;
+    private String notes;
 
     // REQUIRES: year is in form YYYY-MM-DD, time is in 24hr format HH:MM
     // MODIFIES: this
@@ -20,6 +21,7 @@ public class BloodSugarReading {
         this.date = LocalDate.parse(date);
         this.time = LocalTime.parse(time);
         this.category = category;
+        this.notes = "";
     }
 
     // EFFECTS: retrieves blood sugar reading
@@ -40,6 +42,18 @@ public class BloodSugarReading {
     // EFFECTS: retrieves category of reading
     public String getCategory() {
         return this.category;
+    }
+
+    // EFFECTS: retrieves notes associated with a specific reading
+    public String getNotes() {
+        return notes;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds notes about the reading (notes could be anything, something like after exercise, or if you
+    //          were sick at the time, etc)
+    public void setNotes(String notesToAdd) {
+        this.notes = notesToAdd;
     }
 
 

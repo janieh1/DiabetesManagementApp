@@ -24,8 +24,8 @@ public class DiabetesManager {
 
         while (true) {
             System.out.println("What would you like to do? \n 1. Add blood sugar reading \n 2. View all my readings "
-                    + "from a certain category \n 3. Calculate my insulin dosage \n 4. Calculate my average "
-                    + "blood sugars \n 5. Quit");
+                    + "from a certain category \n 3. Calculate my insulin dosage \n 4. View my average "
+                    + "blood sugars \n 5. Add notes to most recently added reading \n 6. Quit");
             scanner = new Scanner(System.in);
             operation = scanner.nextLine();
 
@@ -36,8 +36,13 @@ public class DiabetesManager {
             } else if (operation.equals("3")) {
                 calculateInsulinFromInput();
             } else if (operation.equals("4")) {
-                book.calculateOverallAverage();
+                displayAverages();
             } else if (operation.equals("5")) {
+                Scanner s = new Scanner(System.in);
+                System.out.println("Notes to add: \n");
+                String notes = s.nextLine();
+                book.addNotesToLastReading(notes);
+            } else if (operation.equals("6")) {
                 break;
             }
         }
@@ -91,5 +96,14 @@ public class DiabetesManager {
         System.out.println("Which category (before meal, after meal, fasting)? \n");
         String cat = scanner.nextLine();
         System.out.println("Here are your readings in the " + cat + " category: \n" + book.getValuesInCategory(cat));
+    }
+
+    public void displayAverages() {
+        System.out.println("Overall average: " + book.calculateOverallAverage() + " mmol/L\n");
+        System.out.println("Fasting average: " + book.calculateAverageOfCategory("fasting") + " mmol/L\n");
+        System.out.println("Before meal average: " + book.calculateAverageOfCategory("before meal")
+                + " mmol/L\n");
+        System.out.println("After meal average: " + book.calculateAverageOfCategory("after meal")
+                + " mmol/L\n");
     }
 }

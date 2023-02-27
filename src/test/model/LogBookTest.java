@@ -42,7 +42,7 @@ public class LogBookTest {
 
     @Test
     public void getReadingValuesAndTimeFromDayTestTypical() {
-        ArrayList<BloodSugarReading> readingsFromDay = b2.getReadingValuesAndTimeFromDay("2023-02-03");
+        ArrayList<BloodSugarReading> readingsFromDay = b2.getReadingsFromDay("2023-02-03");
         assertEquals(3, readingsFromDay.size());
         BloodSugarReading firstReading = readingsFromDay.get(0);
         assertEquals(3.0, firstReading.getValue());
@@ -54,7 +54,7 @@ public class LogBookTest {
 
     @Test
     public void getReadingValuesAndTimeFromDayTestNoReadingsOnDay() {
-        ArrayList<BloodSugarReading> readingsFromDay = b2.getReadingValuesAndTimeFromDay("2023-03-03");
+        ArrayList<BloodSugarReading> readingsFromDay = b2.getReadingsFromDay("2023-03-03");
         assertEquals(0, readingsFromDay.size());
 
     }
@@ -84,6 +84,14 @@ public class LogBookTest {
         assertEquals((4.3 + 5.2 + 5.4) / 3.0, b2.calculateAverageOfCategory("before meal"), 0.0001);
         assertEquals(3.0, b2.calculateAverageOfCategory("fasting"), 0.0001);
         assertEquals(0.0, b2.calculateAverageOfCategory("after meal"), 0.0001);
+    }
+
+    @Test
+    public void addNotesToMostRecentReadingTest() {
+        BloodSugarReading bsr = b2.getReadings().get(b2.getReadings().size() - 1);
+        assertEquals("", bsr.getNotes());
+        b2.addNotesToLastReading("felt low");
+        assertEquals("felt low", bsr.getNotes());
 
 
     }
