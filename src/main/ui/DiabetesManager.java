@@ -3,10 +3,15 @@ package ui;
 import model.BloodSugarReading;
 import model.InsulinCalculator;
 import model.LogBook;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class DiabetesManager {
+    private static final String JSON_STORE = "./data/logbook.json";
     private Scanner scanner;
     String operation = "";
     double currentSugar;
@@ -15,20 +20,26 @@ public class DiabetesManager {
     double insulinCarbRatio;
     double insulinSensitivity;
     LogBook book = new LogBook();
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     public DiabetesManager() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         process();
     }
 
+    @SuppressWarnings("methodlength")
     public void process() {
 
         while (true) {
             System.out.println("What would you like to do? \n 1. Add blood sugar reading \n 2. View all my readings "
                     + "from a certain category \n 3. Calculate my insulin dosage \n 4. View my average "
-                    + "blood sugars \n 5. Add notes to most recently added reading \n 6. Quit");
+                    + "blood sugars \n 5. Add notes to most recently added reading \n 6. Save logbook to file"
+                    + "\n 7. Load logbook from file \n 8. Quit \n");
+
             scanner = new Scanner(System.in);
             operation = scanner.nextLine();
-
             if (operation.equals("1")) {
                 getReadingFromUser();
             } else if (operation.equals("2")) {
@@ -38,15 +49,15 @@ public class DiabetesManager {
             } else if (operation.equals("4")) {
                 displayAverages();
             } else if (operation.equals("5")) {
-                Scanner s = new Scanner(System.in);
-                System.out.println("Notes to add: \n");
-                String notes = s.nextLine();
-                book.addNotesToLastReading(notes);
+                addNotes();
             } else if (operation.equals("6")) {
+                saveLogBook();
+            } else if (operation.equals("7")) {
+                loadLogBook();
+            } else if (operation.equals("8")) {
                 break;
             }
         }
-
     }
 
 
@@ -105,5 +116,35 @@ public class DiabetesManager {
                 + " mmol/L\n");
         System.out.println("After meal average: " + book.calculateAverageOfCategory("after meal")
                 + " mmol/L\n");
+    }
+
+    private void addNotes() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Notes to add: \n");
+        String notes = s.nextLine();
+        book.addNotesToLastReading(notes);
+    }
+
+    // EFFECTS: saves the logbook to file
+    private void saveLogBook() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(book);
+            jsonWriter.close();
+            System.out.println("Saved logbook to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads logbook from file
+    private void loadLogBook() {
+        try {
+            book = jsonReader.read();
+            System.out.println("Loaded logbook from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

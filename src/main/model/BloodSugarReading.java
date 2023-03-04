@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -59,5 +61,13 @@ public class BloodSugarReading {
         this.notes = notesToAdd;
     }
 
-
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("value", readingValue);
+        json.put("date", date);
+        json.put("time", time);
+        json.put("category", category);
+        json.put("notes", notes);
+        return json;
+    }
 }

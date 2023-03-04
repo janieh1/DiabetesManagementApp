@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // represents a logbook of blood sugar readings
@@ -102,5 +105,22 @@ public class LogBook {
     public void addNotesToLastReading(String notes) {
         BloodSugarReading bsr = readings.get(readings.size() - 1);
         bsr.setNotes(notes);
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("reading", readingsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray readingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (BloodSugarReading bsr : readings) {
+            jsonArray.put(bsr.toJson());
+        }
+
+        return jsonArray;
     }
 }
