@@ -2,6 +2,7 @@ package model;
 
 import java.util.Scanner;
 
+// represents a calculator with values to calculate how much insulin to give
 public class InsulinCalculator {
     double currentSugar;
     double numCarbs;

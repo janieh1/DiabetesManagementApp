@@ -1,11 +1,14 @@
 package model;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
+// represents a blood sugar reading with a value, date, time, category, and notes.
 public class BloodSugarReading {
     private double readingValue;
     private LocalDate date;

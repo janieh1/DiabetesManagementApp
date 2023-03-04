@@ -45,3 +45,9 @@ myself before a meal.
 As a user, I want to be able to export my data as a 
 CSV or text file, so that I can save it and bring it 
 to my doctor.
+
+As a user, before I quit the application, I want to be able to have the option
+to save my logbook readings to a file.
+
+As a user, when I start the application, I want to have the option to load my data
+from a file.

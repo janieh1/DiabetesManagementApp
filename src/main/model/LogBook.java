@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// represents a logbook of blood sugar readings
 public class LogBook {
     private ArrayList<BloodSugarReading> readings;
 
@@ -22,6 +23,8 @@ public class LogBook {
         readings.add(reading);
     }
 
+    // REQUIRES: category is one of "before meal", "fasting", or "after meal"
+    // EFFECTS: retrieves a list of blood sugar readings with dates and times and notes from given category
     public ArrayList<BloodSugarReading> getReadingsInCategory(String category) {
         ArrayList<BloodSugarReading> readingsInCategory = new ArrayList<BloodSugarReading>();
         for (BloodSugarReading bsr : readings) {
@@ -32,6 +35,8 @@ public class LogBook {
         return readingsInCategory;
     }
 
+    // REQUIRES: category is one of "before meal", "fasting", or "after meal"
+    // EFFECTS: retrieves a list of just blood sugar values from given category
     public ArrayList<Double> getValuesInCategory(String category) {
         ArrayList<Double> valuesInCat = new ArrayList<Double>();
         for (BloodSugarReading bsr : getReadingsInCategory(category)) {
@@ -53,6 +58,8 @@ public class LogBook {
         return (overallSum / readings.size());
     }
 
+    // REQUIRES: category is one of "before meal", "fasting" or "after meal"
+    // EFFECTS: calculates average blood sugar in mmol/L in a given category
     public double calculateAverageOfCategory(String category) {
         double sum = 0;
         if (getReadingsInCategory(category).size() == 0) {
