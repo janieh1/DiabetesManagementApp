@@ -62,6 +62,7 @@ public class BloodSugarReading {
         this.notes = notesToAdd;
     }
 
+    // EFFECTS: returns true if two readings have the same date and time
     @Override
     public boolean equals(Object o) {
         if (this == o) {
