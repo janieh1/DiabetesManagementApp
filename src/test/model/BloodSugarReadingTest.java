@@ -56,6 +56,11 @@ class BloodSugarReadingTest {
     }
 
     @Test
+    public void equalsTest() {
+        assertFalse(reading.equals(new BloodSugarReading(6.2, "2023-03-06", "12:34", "before meal")));
+    }
+
+    @Test
     public void hashCodeTest() {
         assertEquals(1237906720, reading.hashCode());
     }
