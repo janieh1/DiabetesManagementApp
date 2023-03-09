@@ -47,17 +47,17 @@ class BloodSugarReadingTest {
 
     @Test
     public void equalsSameDateANotTimeTest() {
-        assertFalse(reading.equals(new BloodSugarReading(12.2, "2023-03-06", "12:12", "fasting")));
+        assertFalse(reading.equals(new BloodSugarReading(12.2, "2023-02-06", "12:12", "fasting")));
     }
 
     @Test
     public void equalsSameTimeANotDateTest() {
-        assertFalse(reading.equals(new BloodSugarReading(12.2, "2023-03-05", "12:34", "fasting")));
+        assertFalse(reading.equals(new BloodSugarReading(12.2, "2023-02-05", "12:34", "fasting")));
     }
 
     @Test
     public void equalsTest() {
-        assertFalse(reading.equals(new BloodSugarReading(6.2, "2023-03-06", "12:34", "before meal")));
+        assertTrue(reading.equals(new BloodSugarReading(6.2, "2023-02-06", "12:34", "before meal")));
     }
 
     @Test
