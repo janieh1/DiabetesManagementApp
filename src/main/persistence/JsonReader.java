@@ -53,7 +53,7 @@ public class JsonReader {
     // MODIFIES: logBook
     // EFFECTS: parses thingies from JSON object and adds them to workroom
     private void addReadings(LogBook logBook, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("reading");
+        JSONArray jsonArray = jsonObject.getJSONArray("readings");
         for (Object json : jsonArray) {
             JSONObject nextReading = (JSONObject) json;
             addReading(logBook, nextReading);

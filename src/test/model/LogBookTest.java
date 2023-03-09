@@ -24,6 +24,7 @@ public class LogBookTest {
     @Test
     public void LogBookConstructorTest() {
         assertEquals(0, b1.getReadings().size());
+        assertEquals("My Log Book", b1.getName());
     }
 
     @Test

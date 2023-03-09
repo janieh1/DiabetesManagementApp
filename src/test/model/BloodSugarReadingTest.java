@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BloodSugarReadingTest {
     BloodSugarReading reading;
@@ -30,4 +30,23 @@ class BloodSugarReadingTest {
         assertEquals("felt low", reading.getNotes());
     }
 
+    @Test
+    public void equalsNullObjectTest() {
+        assertFalse(reading.equals(null));
+    }
+
+    @Test
+    public void equalsNotSameClassTest() {
+        assertFalse(reading.equals("Hello"));
+    }
+
+    @Test
+    public void equalsSameObjectTest () {
+        assertTrue(reading.equals(reading));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(1237906720, reading.hashCode());
+    }
 }

@@ -7,11 +7,17 @@ import java.util.ArrayList;
 
 // represents a logbook of blood sugar readings
 public class LogBook {
+    private String name;
     private ArrayList<BloodSugarReading> readings;
 
     // EFFECTS: creates new logbook with no readings in it
     public LogBook() {
         this.readings = new ArrayList<BloodSugarReading>();
+        this.name = "My Log Book";
+    }
+
+    public String getName() {
+        return name;
     }
 
     // EFFECTS: gets list of readings in log book
@@ -109,7 +115,8 @@ public class LogBook {
 
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("reading", readingsToJson());
+        json.put("name", name);
+        json.put("readings", readingsToJson());
         return json;
     }
 

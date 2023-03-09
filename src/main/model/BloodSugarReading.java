@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 // represents a blood sugar reading with a value, date, time, category, and notes.
 public class BloodSugarReading {
@@ -59,6 +60,23 @@ public class BloodSugarReading {
     //          were sick at the time, etc)
     public void setNotes(String notesToAdd) {
         this.notes = notesToAdd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BloodSugarReading that = (BloodSugarReading) o;
+        return date.equals(that.date) && time.equals(that.time);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, time);
     }
 
     public JSONObject toJson() {

@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DiabetesManager {
-    private static final String JSON_STORE = "./data/logbook.json";
+    // private static final String JSON_STORE = "./data/logbook.json";
+    private static final String JSON_STORE = "./data/testReaderEmptyLogBook.json";
     private Scanner scanner;
     String operation = "";
     double currentSugar;
