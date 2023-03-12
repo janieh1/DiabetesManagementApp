@@ -103,9 +103,8 @@ public class LogBookTest {
     public void setNotesOfReadingOnTimeAndDayTestCorrectDateAndTime() {
         try {
             b2.setNotesOfReadingOnTimeAndDay("03:30","2023-02-03", "sick");
-            assertEquals("sick", b2.getReadings().get(0).getNotes());
         } catch (ReadingNotFoundException e) {
-            // fail("Unexpected ReadingNotFoundException");
+            fail("Unexpected ReadingNotFoundException");
         }
         assertEquals("sick", b2.getReadings().get(0).getNotes());
     }

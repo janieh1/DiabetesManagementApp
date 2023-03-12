@@ -106,12 +106,17 @@ public class LogBook {
     // EFFECTS: adds notes to a reading given the time and date. if no reading exists,
     // throw new ReadingNotFoundException
     public void setNotesOfReadingOnTimeAndDay(String time, String date, String notes) throws ReadingNotFoundException {
+        BloodSugarReading reading = null;
         for (BloodSugarReading bsr : readings) {
             if ((bsr.getTime().equals(time)) && bsr.getDate().equals(date)) {
-                bsr.setNotes(notes);
-            } else {
-                throw new ReadingNotFoundException("No reading at that time and date exists.");
+                reading = bsr;
+                break;
             }
+        }
+        if (reading == null) {
+            throw new ReadingNotFoundException("No reading at that time and date exists.");
+        } else {
+            reading.setNotes(notes);
         }
     }
 
