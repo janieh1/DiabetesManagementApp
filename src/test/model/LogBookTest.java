@@ -1,11 +1,13 @@
 package model;
 
+import exceptions.ReadingNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class LogBookTest {
     LogBook b1;
@@ -62,7 +64,7 @@ public class LogBookTest {
 
     @Test
     public void getReadingValuesFromCategoryTestTypical() {
-        ArrayList<BloodSugarReading> readingsFromCat = b2.getReadingValuesFromCategory("before meal");
+        ArrayList<BloodSugarReading> readingsFromCat = b2.getReadingsInCategory("before meal");
         assertEquals(3, readingsFromCat.size());
         BloodSugarReading firstReading = readingsFromCat.get(0);
         assertEquals(4.3, firstReading.getValue());
@@ -95,5 +97,36 @@ public class LogBookTest {
         assertEquals("felt low", bsr.getNotes());
 
 
+    }
+
+    @Test
+    public void setNotesOfReadingOnTimeAndDayTestCorrectDateAndTime() {
+        try {
+            b2.setNotesOfReadingOnTimeAndDay("03:30","2023-02-03", "sick");
+            assertEquals("sick", b2.getReadings().get(0).getNotes());
+        } catch (ReadingNotFoundException e) {
+            // fail("Unexpected ReadingNotFoundException");
+        }
+        assertEquals("sick", b2.getReadings().get(0).getNotes());
+    }
+
+    @Test
+    public void setNotesOfReadingOnTimeAndDayTestWrongDate() {
+        try {
+            b2.setNotesOfReadingOnTimeAndDay("03:30","2023-03-03", "sick");
+            fail("expected ReadingNotFoundException");
+        } catch (ReadingNotFoundException e) {
+            // pass
+        }
+    }
+
+    @Test
+    public void setNotesOfReadingOnTimeAndDayTestWrongTime() {
+        try {
+            b2.setNotesOfReadingOnTimeAndDay("02:30","2023-02-03", "sick");
+            fail("expected ReadingNotFoundException");
+        } catch (ReadingNotFoundException e) {
+            // pass
+        }
     }
 }

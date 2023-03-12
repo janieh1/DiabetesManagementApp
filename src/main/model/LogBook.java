@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.ReadingNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -83,7 +84,7 @@ public class LogBook {
 
     // REQUIRES: date is in the form YYYY-MM-DD
     // EFFECTS: retrieves all readings from a given date
-    public ArrayList getReadingsFromDay(String date) {
+    public ArrayList<BloodSugarReading> getReadingsFromDay(String date) {
         ArrayList readingsOnDate = new ArrayList<BloodSugarReading>();
         for (BloodSugarReading bsr : readings) {
             if (bsr.getDate().equals(date)) {
@@ -93,24 +94,25 @@ public class LogBook {
         return readingsOnDate;
     }
 
-    // REQUIRES: category is one of: "before meal" "after meal" or "fasting"
-    // EFFECTS: retrieves all reading value(s) with given category
-    public ArrayList getReadingValuesFromCategory(String category) {
-        ArrayList readingsFromCat = new ArrayList<BloodSugarReading>();
-        for (BloodSugarReading bsr : readings) {
-            if (bsr.getCategory().equals(category)) {
-                readingsFromCat.add(bsr);
-            }
-        }
-        return readingsFromCat;
-    }
-
     // REQUIRES: list of readings is not empty
     // MODIFIES: BloodSugarReading
     // EFFECTS: adds notes to the last reading in the list (the most recently added)
     public void addNotesToLastReading(String notes) {
         BloodSugarReading bsr = readings.get(readings.size() - 1);
         bsr.setNotes(notes);
+    }
+
+    // MODIFIES: blood sugar reading
+    // EFFECTS: adds notes to a reading given the time and date. if no reading exists,
+    // throw new ReadingNotFoundException
+    public void setNotesOfReadingOnTimeAndDay(String time, String date, String notes) throws ReadingNotFoundException {
+        for (BloodSugarReading bsr : readings) {
+            if ((bsr.getTime().equals(time)) && bsr.getDate().equals(date)) {
+                bsr.setNotes(notes);
+            } else {
+                throw new ReadingNotFoundException("No reading at that time and date exists.");
+            }
+        }
     }
 
     public JSONObject toJson() {

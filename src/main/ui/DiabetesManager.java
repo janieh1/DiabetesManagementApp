@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.ReadingNotFoundException;
 import model.BloodSugarReading;
 import model.InsulinCalculator;
 import model.LogBook;
@@ -10,9 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+// Diabetes Manager menu to choose task
 public class DiabetesManager {
     // private static final String JSON_STORE = "./data/logbook.json";
-    private static final String JSON_STORE = "./data/testReaderEmptyLogBook.json";
+    private static final String JSON_STORE = "./data/logbook.json";
     private Scanner scanner;
     String operation = "";
     double currentSugar;
@@ -30,13 +32,15 @@ public class DiabetesManager {
         process();
     }
 
+    // MODIFIES: this
+    // EFFECTS: opens DiabatesManager menu
     @SuppressWarnings("methodlength")
     public void process() {
 
         while (true) {
             System.out.println("What would you like to do? \n 1. Add blood sugar reading \n 2. View all my readings "
                     + "from a certain category \n 3. Calculate my insulin dosage \n 4. View my average "
-                    + "blood sugars \n 5. Add notes to most recently added reading \n 6. Save logbook to file"
+                    + "blood sugars \n 5. Add notes to given reading \n 6. Save logbook to file"
                     + "\n 7. Load logbook from file \n 8. Quit \n");
 
             scanner = new Scanner(System.in);
@@ -103,6 +107,7 @@ public class DiabetesManager {
 
     }
 
+    // EFFECTS: displays readings in terminal
     private void displayReadingsInInputCategory() {
         scanner = new Scanner(System.in);
         System.out.println("Which category (before meal, after meal, fasting)? \n");
@@ -110,6 +115,7 @@ public class DiabetesManager {
         System.out.println("Here are your readings in the " + cat + " category: \n" + book.getValuesInCategory(cat));
     }
 
+    // EFFECTS: displays averages in terminal
     public void displayAverages() {
         System.out.println("Overall average: " + book.calculateOverallAverage() + " mmol/L\n");
         System.out.println("Fasting average: " + book.calculateAverageOfCategory("fasting") + " mmol/L\n");
@@ -119,11 +125,22 @@ public class DiabetesManager {
                 + " mmol/L\n");
     }
 
+    // MODIFIES: book, blood sugar reading
+    // EFFECTS: adds notes to given reading on time and date. if incorrect date/time entered, user can try again
     private void addNotes() {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Notes to add: \n");
-        String notes = s.nextLine();
-        book.addNotesToLastReading(notes);
+        try {
+            Scanner s = new Scanner(System.in);
+            System.out.println("Enter date of reading: \n");
+            String date = s.nextLine();
+            System.out.println("Enter time: \n");
+            String time = s.nextLine();
+            System.out.println("Notes to add: \n");
+            String notes = s.nextLine();
+            book.setNotesOfReadingOnTimeAndDay(time, date, notes);
+        } catch (ReadingNotFoundException e) {
+            System.out.println("Reading not found at given date and time");
+            process();
+        }
     }
 
     // EFFECTS: saves the logbook to file
