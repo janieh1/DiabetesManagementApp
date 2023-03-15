@@ -4,6 +4,8 @@ import exceptions.ReadingNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 // represents a logbook of blood sugar readings
@@ -137,4 +139,6 @@ public class LogBook {
 
         return jsonArray;
     }
+
+
 }
