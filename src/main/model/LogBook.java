@@ -140,5 +140,17 @@ public class LogBook {
         return jsonArray;
     }
 
+    // !!! TEST !!!
+    public ArrayList<String> getReadingsAsStrings() {
+        ArrayList<String> readingsAsStrings = new ArrayList<String>();
+        for (BloodSugarReading bsr : readings) {
+            String stringToAdd = "Value: " + bsr.getValue() + " mmol/L\n"
+                    + "Date: " + bsr.getDate() + "\n"
+                    + "Time: " + bsr.getTime() + "\n" + "Category: " + bsr.getCategory()
+                    + "\n" + "Notes: " + bsr.getNotes();
+            readingsAsStrings.add(stringToAdd);
+        }
+        return readingsAsStrings;
+    }
 
 }
