@@ -85,12 +85,11 @@ public class AddEntryPanel extends ManagerPanel {
     }
 
     public void addEntryToLogBook(LogBook book, ManagerGUI gui) {
-        BloodSugarReading bsr = new BloodSugarReading(Integer.parseInt(value.getText()),
-                years.getText() + "-" + monthsToChoose.getToolTipText() + "-" + daysToChoose.getToolTipText(),
-                hoursToChoose.getToolTipText() + ":" + minutesToChoose.getToolTipText(),
-                catsToChoose.getToolTipText());
+        BloodSugarReading bsr = new BloodSugarReading(Double.parseDouble(value.getText()),
+                years.getText() + "-" + monthsToChoose.getSelectedItem() + "-" + daysToChoose.getSelectedItem(),
+                hoursToChoose.getSelectedItem() + ":" + minutesToChoose.getSelectedItem(),
+                (String) catsToChoose.getSelectedItem());
         book.addReading(bsr);
-        gui.makeLogBook();
     }
 
 

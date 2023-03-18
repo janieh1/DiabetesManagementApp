@@ -1,13 +1,23 @@
 package ui;
 
+import model.BloodSugarReading;
 import model.LogBook;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ManagerGUI extends JFrame implements ActionListener {
+    private static final String JSON_STORE = "./data/logbook.json";
+
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     private LogBook book;
     private JList logBookDisplay;
 
@@ -18,6 +28,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
     private static JFrame frame;
 
     private JPanel mainMenu;
+    private JPanel listPane;
 
     private static JButton b1; // add entry
     private static JButton b2; // calculate averages and display graph
@@ -26,7 +37,10 @@ public class ManagerGUI extends JFrame implements ActionListener {
     private static JButton b5; // load
 
     public ManagerGUI() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         book = new LogBook();
+        book.addReading(new BloodSugarReading(4.5, "2023-06-06", "14:15", "fasting"));
         createAndShowGUI();
     }
 
@@ -39,7 +53,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
         createMainMenu();
         initializeMainMenu();
-        makeLogBook();
+        makeLogBook(true);
 
         //Display the window.
         frame.pack();
@@ -75,11 +89,13 @@ public class ManagerGUI extends JFrame implements ActionListener {
     }
 
     // EFFECTS: displays contents of logbook on frame
-    public void makeLogBook() {
+    public void makeLogBook(boolean initialize) {
         String[] readings;
         readings = book.getReadingsAsStrings().toArray(new String[0]);
-
-        JPanel listPane = new JPanel();
+        if (!initialize) {
+            frame.remove(listPane);
+        }
+        listPane = new JPanel();
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
         JLabel listLabel = new JLabel("My LogBook");
         listLabel.setLabelFor(listPane);
@@ -87,17 +103,13 @@ public class ManagerGUI extends JFrame implements ActionListener {
         logBookDisplay = new JList(readings);
         logBookDisplay.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         logBookDisplay.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        logBookDisplay.setLayoutOrientation(JList.VERTICAL_WRAP);
         logBookDisplay.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(logBookDisplay);
-        listScroller.setPreferredSize(new Dimension(250, 80));
+        listScroller.setPreferredSize(new Dimension(450, 100));
         listPane.add(Box.createRigidArea(new Dimension(0,5)));
         listPane.add(listScroller);
-        listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         frame.add(listPane);
-
-//        logBookDisplay = new JScrollPane(listOfReadings, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-//                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        frame.add(logBookDisplay);
     }
 
 
@@ -108,20 +120,47 @@ public class ManagerGUI extends JFrame implements ActionListener {
             frame.setContentPane(addEntryPanel);
             frame.pack();
             frame.setVisible(true);
+        } else if (e.getActionCommand().equals("add entry to list of entries")) {
             addEntryPanel.addEntryToLogBook(book, this);
         } else if (e.getActionCommand().equals("calculate averages")) {
             //displayAverages(); // !!!
         } else if (e.getActionCommand().equals("calculate insulin")) {
             //calculateInsulinFromInput(); // !!!
         } else if (e.getActionCommand().equals("save to file")) {
-            //saveLogBook();
+            saveLogBook();
         } else if (e.getActionCommand().equals("load from file")) {
-            //loadLogBook();
+            loadLogBook();
         } else if (e.getActionCommand().equals("return to menu")) {
             frame.setContentPane(mainMenu);
             frame.pack();
             frame.setVisible(true);
+            makeLogBook(false);
 
+        }
+    }
+
+    // EFFECTS: saves the logbook to file
+    private void saveLogBook() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(book);
+            jsonWriter.close();
+            System.out.println("Saved logbook to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads logbook from file
+    private void loadLogBook() {
+        try {
+            book = jsonReader.read();
+            makeLogBook(false);
+            SwingUtilities.updateComponentTreeUI(frame);
+            System.out.println("Loaded logbook from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }
