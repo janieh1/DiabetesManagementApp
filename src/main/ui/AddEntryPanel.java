@@ -4,11 +4,10 @@ import model.BloodSugarReading;
 import model.LogBook;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class AddEntryPanel extends ManagerPanel {
     private JButton add;
-    private JButton returnMainMenu;
+//    private JButton returnMainMenu;
 
     private JTextField value;
 
@@ -49,9 +48,7 @@ public class AddEntryPanel extends ManagerPanel {
         add = new JButton("Add");
         add.setActionCommand("add entry to list of entries");
         add.addActionListener(gui);
-        returnMainMenu = new JButton("Return to Main Menu");
-        returnMainMenu.setActionCommand("return to menu");
-        returnMainMenu.addActionListener(gui);
+        addReturnMainMenuButton();
 
         value = new JTextField(5);
         years = new JTextField(4);
@@ -81,7 +78,7 @@ public class AddEntryPanel extends ManagerPanel {
         add(catsToChoose);
         add(catLabel);
         add(add);
-        add(returnMainMenu);
+//        add(returnMainMenu);
     }
 
     public void addEntryToLogBook(LogBook book, ManagerGUI gui) {

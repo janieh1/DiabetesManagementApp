@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 // represents a logbook of blood sugar readings
 public class LogBook {
@@ -151,6 +153,28 @@ public class LogBook {
             readingsAsStrings.add(stringToAdd);
         }
         return readingsAsStrings;
+    }
+
+    //!!!
+    public Map<String, Double> calulcateTimeInRange() {
+        Map<String, Double> inRange = new HashMap<>();
+        inRange.put("low", 0.0);
+        inRange.put("in range", 0.0);
+        inRange.put("high", 0.0);
+
+        for (BloodSugarReading bsr : readings) {
+            if (bsr.getValue() >= 10.1) {
+                inRange.put("high", inRange.get("high") + 1);
+            } else if ((bsr.getValue() >= 4.1) && (bsr.getValue() <= 10.0)) {
+                inRange.put("in range", inRange.get("in range") + 1);
+            } else {
+                inRange.put("low", inRange.get("low") + 1);
+            }
+        }
+        inRange.put("high", inRange.get("high") / readings.size());
+        inRange.put("in range", inRange.get("in range") / readings.size());
+        inRange.put("low", inRange.get("low") / readings.size());
+        return inRange;
     }
 
 }

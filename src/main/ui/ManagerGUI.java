@@ -123,7 +123,10 @@ public class ManagerGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("add entry to list of entries")) {
             addEntryPanel.addEntryToLogBook(book, this);
         } else if (e.getActionCommand().equals("calculate averages")) {
-            //displayAverages(); // !!!
+            statsPanel = new DisplayStatsPanel(this);
+            frame.setContentPane(statsPanel);
+            frame.pack();
+            frame.setVisible(true);
         } else if (e.getActionCommand().equals("calculate insulin")) {
             //calculateInsulinFromInput(); // !!!
         } else if (e.getActionCommand().equals("save to file")) {
@@ -162,5 +165,9 @@ public class ManagerGUI extends JFrame implements ActionListener {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    public LogBook getBook() {
+        return book;
     }
 }
