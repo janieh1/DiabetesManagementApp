@@ -38,13 +38,13 @@ public class AddEntryPanel extends ManagerPanel {
     // EFFECTS: opens a JPanel with places to add data to add new logbook entry
     public AddEntryPanel(ManagerGUI gui) {
         super(5, 2, gui);
-        valueLabel = new JLabel("Value in mmol/L");
-        yearLabel = new JLabel("Year");
-        monthLabel = new JLabel("Month");
-        dayLabel = new JLabel("Day");
-        hourLabel = new JLabel("Hour");
-        minLabel = new JLabel("Minute");
-        catLabel = new JLabel("Category");
+        valueLabel = new JLabel("Value in mmol/L:");
+        yearLabel = new JLabel("Year:");
+        monthLabel = new JLabel("Month:");
+        dayLabel = new JLabel("Day:");
+        hourLabel = new JLabel("Hour:");
+        minLabel = new JLabel("Minute:");
+        catLabel = new JLabel("Category:");
         add = new JButton("Add");
         add.setActionCommand("add entry to list of entries");
         add.addActionListener(gui);
@@ -63,22 +63,21 @@ public class AddEntryPanel extends ManagerPanel {
 
     @Override
     protected void addEverything() {
-        add(value);
         add(valueLabel);
-        add(years);
+        add(value);
         add(yearLabel);
-        add(monthsToChoose);
+        add(years);
         add(monthLabel);
-        add(daysToChoose);
+        add(monthsToChoose);
         add(dayLabel);
-        add(hoursToChoose);
+        add(daysToChoose);
         add(hourLabel);
-        add(minutesToChoose);
+        add(hoursToChoose);
         add(minLabel);
-        add(catsToChoose);
+        add(minutesToChoose);
         add(catLabel);
+        add(catsToChoose);
         add(add);
-//        add(returnMainMenu);
     }
 
     public void addEntryToLogBook(LogBook book, ManagerGUI gui) {

@@ -62,6 +62,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     private void createMainMenu() {
         mainMenu = new JPanel(new GridLayout(2, 1));
+//        mainMenu = new JPanel(new GridBagLayout());
         b1 = new JButton("Add Log Book Entry");
         b1.setActionCommand("add entry");
         b1.addActionListener(this);
@@ -102,12 +103,10 @@ public class ManagerGUI extends JFrame implements ActionListener {
         listPane.add(listLabel);
         logBookDisplay = new JList(readings);
         logBookDisplay.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        logBookDisplay.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         logBookDisplay.setLayoutOrientation(JList.VERTICAL_WRAP);
-        logBookDisplay.setVisibleRowCount(-1);
         JScrollPane listScroller = new JScrollPane(logBookDisplay);
         listScroller.setPreferredSize(new Dimension(450, 100));
-        listPane.add(Box.createRigidArea(new Dimension(0,5)));
+        listPane.add(Box.createRigidArea(new Dimension(5,5)));
         listPane.add(listScroller);
         frame.add(listPane);
     }
