@@ -14,7 +14,7 @@ public class DisplayStatsPanel extends ManagerPanel {
 
 
     public DisplayStatsPanel(ManagerGUI gui) {
-        super(1, 4, gui);
+        super(2, 1, gui);
         LogBook book = gui.getBook();
         overallAverage = new JLabel("Overall average: " + book.calculateOverallAverage() + " mmol/L\n");
         fastingAverage = new JLabel("Fasting average: " + book.calculateAverageOfCategory("fasting") + " mmol/L\n");

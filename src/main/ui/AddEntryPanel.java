@@ -4,6 +4,7 @@ import model.BloodSugarReading;
 import model.LogBook;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class AddEntryPanel extends ManagerPanel {
     private JButton add;
@@ -38,13 +39,14 @@ public class AddEntryPanel extends ManagerPanel {
     // EFFECTS: opens a JPanel with places to add data to add new logbook entry
     public AddEntryPanel(ManagerGUI gui) {
         super(5, 2, gui);
-        valueLabel = new JLabel("Value in mmol/L:");
-        yearLabel = new JLabel("Year:");
-        monthLabel = new JLabel("Month:");
-        dayLabel = new JLabel("Day:");
-        hourLabel = new JLabel("Hour:");
-        minLabel = new JLabel("Minute:");
-        catLabel = new JLabel("Category:");
+        setPreferredSize(new Dimension(500, 200));
+        valueLabel = new JLabel("Value in mmol/L");
+        yearLabel = new JLabel("Year");
+        monthLabel = new JLabel("Month");
+        dayLabel = new JLabel("Day");
+        hourLabel = new JLabel("Hour");
+        minLabel = new JLabel("Minute");
+        catLabel = new JLabel("Category");
         add = new JButton("Add");
         add.setActionCommand("add entry to list of entries");
         add.addActionListener(gui);

@@ -116,26 +116,21 @@ public class ManagerGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add entry")) {
             addEntryPanel = new AddEntryPanel(this);
-            frame.setContentPane(addEntryPanel);
-            frame.pack();
-            frame.setVisible(true);
+            changePane(addEntryPanel);
         } else if (e.getActionCommand().equals("add entry to list of entries")) {
             addEntryPanel.addEntryToLogBook(book, this);
         } else if (e.getActionCommand().equals("calculate averages")) {
             statsPanel = new DisplayStatsPanel(this);
-            frame.setContentPane(statsPanel);
-            frame.pack();
-            frame.setVisible(true);
+            changePane(statsPanel);
         } else if (e.getActionCommand().equals("calculate insulin")) {
-            //calculateInsulinFromInput(); // !!!
+            calculatorPanel = new CalculatorPanel(this);
+            changePane(calculatorPanel);
         } else if (e.getActionCommand().equals("save to file")) {
             saveLogBook();
         } else if (e.getActionCommand().equals("load from file")) {
             loadLogBook();
         } else if (e.getActionCommand().equals("return to menu")) {
-            frame.setContentPane(mainMenu);
-            frame.pack();
-            frame.setVisible(true);
+            changePane(mainMenu);
             makeLogBook(false);
 
         }
@@ -168,5 +163,11 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     public LogBook getBook() {
         return book;
+    }
+
+    private void changePane(JPanel panel) {
+        frame.setContentPane(panel);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
