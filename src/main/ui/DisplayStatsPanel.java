@@ -35,7 +35,6 @@ public class DisplayStatsPanel extends ManagerPanel {
         add(beforeMealAverage);
         add(afterMealAverage);
         add(timeInRange);
-
     }
 
 
