@@ -25,7 +25,6 @@ public class CalculatorPanel extends ManagerPanel implements ActionListener {
 
     public CalculatorPanel(ManagerGUI gui) {
         super(2, 5, gui);
-        setPreferredSize(new Dimension(500, 350));
         currentSugarLabel = new JLabel("Current Blood Sugar (mmol/L):");
         ratioLabel = new JLabel("Insulin to carb ratio (units per 1 gram):");
         baseLabel = new JLabel("Base Insulin:");

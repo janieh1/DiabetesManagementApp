@@ -12,12 +12,6 @@ public abstract class ManagerPanel extends JPanel {
     public ManagerPanel(int rows, int cols, ManagerGUI gui) {
         panel = new JPanel(new GridLayout(rows, cols));
         this.gui = gui;
-        //JScrollPane scroll = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-        //        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //JButton menuButton = new JButton("Return to Selection Menu");
-        //menuButton.setActionCommand("return to menu");
-        //menuButton.addActionListener(gui);
-        //addMenuButton(menuButton, panel);
     }
 
 

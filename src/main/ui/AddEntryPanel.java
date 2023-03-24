@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class AddEntryPanel extends ManagerPanel {
     private JButton add;
-//    private JButton returnMainMenu;
 
     private JTextField value;
 
@@ -39,7 +38,6 @@ public class AddEntryPanel extends ManagerPanel {
     // EFFECTS: opens a JPanel with places to add data to add new logbook entry
     public AddEntryPanel(ManagerGUI gui) {
         super(5, 2, gui);
-        setPreferredSize(new Dimension(500, 200));
         valueLabel = new JLabel("Value in mmol/L");
         yearLabel = new JLabel("Year");
         monthLabel = new JLabel("Month");

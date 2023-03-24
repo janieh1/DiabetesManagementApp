@@ -36,6 +36,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
     private static JButton b3; // open insulin calculator
     private static JButton b4; // save
     private static JButton b5; // load
+
     private static JButton beforeOnly;
     private static JButton afterOnly;
     private static JButton fastingOnly;
@@ -58,11 +59,10 @@ public class ManagerGUI extends JFrame implements ActionListener {
         //Create and set up the window.
         frame = new JFrame("Diabetes Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setPreferredSize(new Dimension(1500, 1500));
+        frame.setPreferredSize(new Dimension(1200, 500));
         frame.setLayout(new GridLayout());
 
         createMainMenu();
-        initializeMainMenu();
         makeLogBook(true, "none");
 
         //Display the window.
@@ -72,8 +72,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     @SuppressWarnings("methodlength")
     private void createMainMenu() {
-       // mainMenu = new JPanel(new GridLayout(4, 2));
-        mainMenu = new JPanel();
+        mainMenu = new JPanel(new GridLayout(3, 2));
         b1 = new JButton("Add Log Book Entry");
         b1.setActionCommand("add entry");
         b1.addActionListener(this);
@@ -94,12 +93,11 @@ public class ManagerGUI extends JFrame implements ActionListener {
         mainMenu.add(b3);
         mainMenu.add(b4);
         mainMenu.add(b5);
+
+        frame.getContentPane().add(mainMenu);
     }
 
-    private void initializeMainMenu() {
-        frame.setContentPane(mainMenu);
-    }
-
+    @SuppressWarnings("methodlength")
     // EFFECTS: displays contents of logbook on frame
     public void makeLogBook(boolean initialize, String category) {
         JLabel listLabel;
@@ -151,7 +149,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         listPane.add(notesToAdd);
         listPane.add(addNotes);
 
-        frame.add(listPane);
+        frame.getContentPane().add(listPane);
     }
 
     private void setNotesForSelectedItem() {
@@ -161,7 +159,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
             book.setNotesOfReadingOnTimeAndDay(book.getReadings().get(index).getTime(),
                     book.getReadings().get(index).getDate(), notes);
         } catch (ReadingNotFoundException e) {
-            // do nothing for now anyways
+            // do nothing, this exception shouldn't be thrown if selecting a reading
         }
 
     }
@@ -186,26 +184,19 @@ public class ManagerGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("load from file")) {
             loadLogBook();
         } else if (e.getActionCommand().equals("return to menu")) {
-            changePane(mainMenu);
-            makeLogBook(false, "none");
-            SwingUtilities.updateComponentTreeUI(frame);
-            //frame.setPreferredSize(new Dimension(1500, 400));
+            backToMain();
         } else if (e.getActionCommand().equals("before only")) {
             makeLogBook(false, "before meal");
             SwingUtilities.updateComponentTreeUI(frame);
-            //frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("after only")) {
             makeLogBook(false, "after meal");
             SwingUtilities.updateComponentTreeUI(frame);
-           // frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("fasting only")) {
             makeLogBook(false, "fasting");
-            //frame.setPreferredSize(new Dimension(1500, 400));
             SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("all")) {
             makeLogBook(false, "none");
             SwingUtilities.updateComponentTreeUI(frame);
-           // frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("add notes")) {
             setNotesForSelectedItem();
         }
@@ -241,8 +232,18 @@ public class ManagerGUI extends JFrame implements ActionListener {
     }
 
     private void changePane(JPanel panel) {
-        frame.setContentPane(panel);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void backToMain() {
+        frame.getContentPane().removeAll();
+        frame.setPreferredSize(new Dimension(1200, 500));
+        frame.getContentPane().add(mainMenu);
+        makeLogBook(false, "none");
+        SwingUtilities.updateComponentTreeUI(frame);
+
     }
 }

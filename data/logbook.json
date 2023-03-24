@@ -1,25 +1,18 @@
 {
     "readings": [
         {
-            "date": "2023-03-03",
-            "notes": "felt low",
-            "time": "23:11",
-            "category": "fasting",
-            "value": 3.3
-        },
-        {
-            "date": "2023-03-03",
+            "date": "2023-06-06",
             "notes": "",
-            "time": "12:34",
-            "category": "before meal",
+            "time": "14:15",
+            "category": "fasting",
             "value": 4.5
         },
         {
-            "date": "2023-03-03",
+            "date": "2023-01-01",
             "notes": "",
-            "time": "12:12",
-            "category": "fasting",
-            "value": 7.8
+            "time": "00:00",
+            "category": "before meal",
+            "value": 8.8
         }
     ],
     "name": "My Log Book"
