@@ -58,7 +58,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
         //Create and set up the window.
         frame = new JFrame("Diabetes Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(1500, 500));
+        //frame.setPreferredSize(new Dimension(1500, 1500));
+        frame.setLayout(new GridLayout());
 
         createMainMenu();
         initializeMainMenu();
@@ -71,7 +72,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     @SuppressWarnings("methodlength")
     private void createMainMenu() {
-        mainMenu = new JPanel(new GridLayout(2, 1));
+       // mainMenu = new JPanel(new GridLayout(4, 2));
+        mainMenu = new JPanel();
         b1 = new JButton("Add Log Book Entry");
         b1.setActionCommand("add entry");
         b1.addActionListener(this);
@@ -87,6 +89,42 @@ public class ManagerGUI extends JFrame implements ActionListener {
         b5 = new JButton("Load Log Book from File");
         b5.setActionCommand("load from file");
         b5.addActionListener(this);
+        mainMenu.add(b1);
+        mainMenu.add(b2);
+        mainMenu.add(b3);
+        mainMenu.add(b4);
+        mainMenu.add(b5);
+    }
+
+    private void initializeMainMenu() {
+        frame.setContentPane(mainMenu);
+    }
+
+    // EFFECTS: displays contents of logbook on frame
+    public void makeLogBook(boolean initialize, String category) {
+        JLabel listLabel;
+        String[] readings;
+        readings = book.getReadingsAsStrings(category).toArray(new String[0]);
+        if (!initialize) {
+            frame.remove(listPane);
+        }
+        listPane = new JPanel(new GridLayout(2, 5));
+        listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+        if (category == "none") {
+            listLabel = new JLabel("My LogBook:");
+        } else {
+            listLabel = new JLabel("My LogBook (" + category + "):");
+        }
+        listLabel.setLabelFor(listPane);
+        listPane.add(listLabel);
+        logBookDisplay = new JList(readings);
+        logBookDisplay.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        logBookDisplay.setLayoutOrientation(JList.VERTICAL_WRAP);
+        JScrollPane listScroller = new JScrollPane(logBookDisplay);
+        listScroller.setPreferredSize(new Dimension(250, 250));
+        listPane.add(Box.createRigidArea(new Dimension(5,5)));
+        listPane.add(listScroller);
+
         beforeOnly = new JButton("Show before meal readings only");
         beforeOnly.setActionCommand("before only");
         beforeOnly.addActionListener(this);
@@ -104,49 +142,15 @@ public class ManagerGUI extends JFrame implements ActionListener {
         addNotes.addActionListener(this);
         addNotesLabel = new JLabel("Notes to add:");
         notesToAdd = new JTextField(20);
-        mainMenu.add(b1);
-        mainMenu.add(b2);
-        mainMenu.add(b3);
-        mainMenu.add(b4);
-        mainMenu.add(b5);
-        mainMenu.add(beforeOnly);
-        mainMenu.add(afterOnly);
-        mainMenu.add(fastingOnly);
-        mainMenu.add(allReadings);
-        mainMenu.add(addNotes);
-        mainMenu.add(addNotesLabel);
-        mainMenu.add(notesToAdd);
 
-    }
+        listPane.add(beforeOnly);
+        listPane.add(afterOnly);
+        listPane.add(fastingOnly);
+        listPane.add(allReadings);
+        listPane.add(addNotesLabel);
+        listPane.add(notesToAdd);
+        listPane.add(addNotes);
 
-    private void initializeMainMenu() {
-        frame.setContentPane(mainMenu);
-    }
-
-    // EFFECTS: displays contents of logbook on frame
-    public void makeLogBook(boolean initialize, String category) {
-        JLabel listLabel;
-        String[] readings;
-        readings = book.getReadingsAsStrings(category).toArray(new String[0]);
-        if (!initialize) {
-            frame.remove(listPane);
-        }
-        listPane = new JPanel();
-        listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-        if (category == "none") {
-            listLabel = new JLabel("My LogBook:");
-        } else {
-            listLabel = new JLabel("My LogBook (" + category + "):");
-        }
-        listLabel.setLabelFor(listPane);
-        listPane.add(listLabel);
-        logBookDisplay = new JList(readings);
-        logBookDisplay.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        logBookDisplay.setLayoutOrientation(JList.VERTICAL_WRAP);
-        JScrollPane listScroller = new JScrollPane(logBookDisplay);
-        listScroller.setPreferredSize(new Dimension(250, 100));
-        listPane.add(Box.createRigidArea(new Dimension(5,5)));
-        listPane.add(listScroller);
         frame.add(listPane);
     }
 
@@ -185,23 +189,23 @@ public class ManagerGUI extends JFrame implements ActionListener {
             changePane(mainMenu);
             makeLogBook(false, "none");
             SwingUtilities.updateComponentTreeUI(frame);
-            frame.setPreferredSize(new Dimension(1500, 400));
+            //frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("before only")) {
             makeLogBook(false, "before meal");
             SwingUtilities.updateComponentTreeUI(frame);
-            frame.setPreferredSize(new Dimension(1500, 400));
+            //frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("after only")) {
             makeLogBook(false, "after meal");
             SwingUtilities.updateComponentTreeUI(frame);
-            frame.setPreferredSize(new Dimension(1500, 400));
+           // frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("fasting only")) {
             makeLogBook(false, "fasting");
-            frame.setPreferredSize(new Dimension(1500, 400));
+            //frame.setPreferredSize(new Dimension(1500, 400));
             SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("all")) {
             makeLogBook(false, "none");
             SwingUtilities.updateComponentTreeUI(frame);
-            frame.setPreferredSize(new Dimension(1500, 400));
+           // frame.setPreferredSize(new Dimension(1500, 400));
         } else if (e.getActionCommand().equals("add notes")) {
             setNotesForSelectedItem();
         }

@@ -51,3 +51,12 @@ to save my logbook readings to a file.
 
 As a user, when I start the application, I want to have the option to load my data
 from a file.
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by clicking the Add Log Book Entry button
+- You can generate the second required action related to adding Xs to a Y by clicking one of the Show _____ readings only, to show only readings from the specified category
+- You can also add notes to a reading by first selecting the reading displayed, typing in your notes, and then clicking the Add Notes button. To get the notes to show in the display, click one of the Show Readings buttons
+- You can locate my visual component by clicking on Calculate Averages
+- You can save the state of my application by clicking Save Log Book
+- You can reload the state of my application by clicking Load Log Book
