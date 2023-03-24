@@ -143,14 +143,25 @@ public class LogBook {
     }
 
     // !!! TEST !!!
-    public ArrayList<String> getReadingsAsStrings() {
+    public ArrayList<String> getReadingsAsStrings(String category) {
         ArrayList<String> readingsAsStrings = new ArrayList<String>();
-        for (BloodSugarReading bsr : readings) {
-            String stringToAdd = "Value: " + bsr.getValue() + " mmol/L\n"
-                    + "Date: " + bsr.getDate() + "\n"
-                    + "Time: " + bsr.getTime() + "\n" + "Category: " + bsr.getCategory()
-                    + "\n" + "Notes: " + bsr.getNotes();
-            readingsAsStrings.add(stringToAdd);
+        if (category == "none") {
+            for (BloodSugarReading bsr : readings) {
+                String stringToAdd = "Value: " + bsr.getValue() + " mmol/L\n"
+                        + "Date: " + bsr.getDate() + "\n"
+                        + "Time: " + bsr.getTime() + "\n" + "Category: " + bsr.getCategory()
+                        + "\n" + "Notes: " + bsr.getNotes();
+                readingsAsStrings.add(stringToAdd);
+            }
+        } else {
+            ArrayList<BloodSugarReading> readingsFromCat = getReadingsInCategory(category);
+            for (BloodSugarReading bsr : readingsFromCat) {
+                String stringToAdd = "Value: " + bsr.getValue() + " mmol/L\n"
+                        + "Date: " + bsr.getDate() + "\n"
+                        + "Time: " + bsr.getTime() + "\n" + "Category: " + bsr.getCategory()
+                        + "\n" + "Notes: " + bsr.getNotes();
+                readingsAsStrings.add(stringToAdd);
+            }
         }
         return readingsAsStrings;
     }
