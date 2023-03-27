@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class ChartPanel extends JPanel {
     private List<Double> values;
     private List<String> names;
     private String title;
+    private ArrayList<Color> colours;
+    DecimalFormat df = new DecimalFormat("#.##");
 
     public ChartPanel(ManagerGUI gui) {
         this.book = gui.getBook();
@@ -32,12 +35,18 @@ public class ChartPanel extends JPanel {
         this.names.add("low");
         this.names.add("in range");
         this.names.add("high");
-        this.title = "Time in Range";
+        this.title = "Time in Range\n Low - " + df.format(values.get(0) * 100) + "%\n"
+                + "In Range - " + df.format(values.get(1) * 100) + "%\n"
+                + "High - " + df.format(values.get(2) * 100) + "%";
     }
 
     @SuppressWarnings("methodlength")
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        colours = new ArrayList<Color>();
+        colours.add(Color.red);
+        colours.add(Color.green);
+        colours.add(Color.yellow);
         if (values == null || values.size() == 0) {
             return;
         }
@@ -57,7 +66,7 @@ public class ChartPanel extends JPanel {
         int clientHeight = d.height;
         int barWidth = clientWidth / values.size();
 
-        Font titleFont = new Font("SansSerif", Font.BOLD, 20);
+        Font titleFont = new Font("SansSerif", Font.BOLD, 16);
         FontMetrics titleFontMetrics = g.getFontMetrics(titleFont);
         Font labelFont = new Font("SansSerif", Font.PLAIN, 10);
         FontMetrics labelFontMetrics = g.getFontMetrics(labelFont);
@@ -87,7 +96,7 @@ public class ChartPanel extends JPanel {
                 height = -height;
             }
 
-            g.setColor(Color.red);
+            g.setColor(colours.get(i));
             g.fillRect(valueX, valueY, barWidth - 2, height);
             g.setColor(Color.black);
             g.drawRect(valueX, valueY, barWidth - 2, height);
