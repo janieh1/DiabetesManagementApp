@@ -1,26 +1,10 @@
 {
-    "readings": [
-        {
-            "date": "2023-06-06",
-            "notes": "",
-            "time": "14:15",
-            "category": "fasting",
-            "value": 4.5
-        },
-        {
-            "date": "2023-01-01",
-            "notes": "",
-            "time": "00:00",
-            "category": "before meal",
-            "value": 8.8
-        },
-        {
-            "date": "2023-03-26",
-            "notes": "",
-            "time": "20:50",
-            "category": "after meal",
-            "value": 14.4
-        }
-    ],
+    "readings": [{
+        "date": "2023-06-06",
+        "notes": "",
+        "time": "14:15",
+        "category": "fasting",
+        "value": 4.5
+    }],
     "name": "My Log Book"
 }

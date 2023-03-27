@@ -6,6 +6,7 @@ import model.LogBook;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
     private static JButton b3; // open insulin calculator
     private static JButton b4; // save
     private static JButton b5; // load
+    private static JButton refresh;
 
     private static JButton beforeOnly;
     private static JButton afterOnly;
@@ -102,6 +104,18 @@ public class ManagerGUI extends JFrame implements ActionListener {
         mainMenu.add(b3);
         mainMenu.add(b4);
         mainMenu.add(b5);
+
+
+        ImageIcon refIcon = new ImageIcon("./data/Refresh_icon.png");
+        Image image = refIcon.getImage(); // transform it
+        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        refIcon = new ImageIcon(newimg);  // transform it back
+        refresh = new JButton(refIcon);
+        refresh.setActionCommand("refresh");
+        refresh.addActionListener(this);
+
+
+        mainMenu.add(refresh);
 
         frame.getContentPane().add(mainMenu);
     }
@@ -211,6 +225,9 @@ public class ManagerGUI extends JFrame implements ActionListener {
             makeLogBook(false, "none");
         } else if (e.getActionCommand().equals("add notes")) {
             setNotesForSelectedItem();
+        } else if (e.getActionCommand().equals("refresh")) {
+            SwingUtilities.updateComponentTreeUI(frame);
+            makeLogBook(false, "none");
         }
     }
 
