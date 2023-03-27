@@ -13,6 +13,7 @@ public class DisplayStatsPanel extends ManagerPanel {
     private JLabel timeInRange;
 
 
+
     // MODIFES: this
     // EFFECTS: constructs a panel to display stats
     public DisplayStatsPanel(ManagerGUI gui) {
@@ -29,6 +30,8 @@ public class DisplayStatsPanel extends ManagerPanel {
         addEverything();
         setOpaque(true);
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: adds all components to the panel

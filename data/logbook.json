@@ -13,6 +13,13 @@
             "time": "00:00",
             "category": "before meal",
             "value": 8.8
+        },
+        {
+            "date": "2023-03-26",
+            "notes": "",
+            "time": "20:50",
+            "category": "after meal",
+            "value": 14.4
         }
     ],
     "name": "My Log Book"

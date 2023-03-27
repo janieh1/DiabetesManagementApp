@@ -47,6 +47,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     private JTextField notesToAdd;
 
+    private ChartPanel chart;
+
     // MODIFIES: this
     // EFFECTS: constructs a jframe with the main menu showing
     public ManagerGUI() {
@@ -189,6 +191,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("calculate averages")) {
             statsPanel = new DisplayStatsPanel(this);
             changePane(statsPanel);
+            displayBarChart();
         } else if (e.getActionCommand().equals("calculate insulin")) {
             calculatorPanel = new CalculatorPanel(this);
             changePane(calculatorPanel);
@@ -259,4 +262,16 @@ public class ManagerGUI extends JFrame implements ActionListener {
         SwingUtilities.updateComponentTreeUI(frame);
 
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: shows bar chart
+    public void displayBarChart() {
+        chart = new ChartPanel(this);
+        chart.showBarChart();
+    }
+
 }
