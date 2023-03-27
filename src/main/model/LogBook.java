@@ -4,8 +4,6 @@ import exceptions.ReadingNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -124,6 +122,8 @@ public class LogBook {
         }
     }
 
+    // MODIFIES: json
+    // EFFECTS: writes logbook to json array
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -131,7 +131,7 @@ public class LogBook {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns readings in logbook as a JSON array
     private JSONArray readingsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -142,7 +142,8 @@ public class LogBook {
         return jsonArray;
     }
 
-    // !!! TEST !!!
+    // EFFECTS: returns the readings in given category in the logbook as one string. if category == "none", all readings
+    //          will be shown
     public ArrayList<String> getReadingsAsStrings(String category) {
         ArrayList<String> readingsAsStrings = new ArrayList<String>();
         if (category == "none") {
@@ -166,8 +167,9 @@ public class LogBook {
         return readingsAsStrings;
     }
 
-    //!!!
-    public Map<String, Double> calulcateTimeInRange() {
+    // EFFECTS: produces a map of each reading value group (high, in range, or low) with their values being the
+    // percentage of readings in the book that have that value
+    public Map<String, Double> calculateTimeInRange() {
         Map<String, Double> inRange = new HashMap<>();
         inRange.put("low", 0.0);
         inRange.put("in range", 0.0);

@@ -3,10 +3,10 @@ package ui;
 import model.InsulinCalculator;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// represents the window that opens when a user wants to calculate how much insulin to give themselves
 public class CalculatorPanel extends ManagerPanel implements ActionListener {
     private InsulinCalculator calculator;
     private JButton calculate;
@@ -23,6 +23,8 @@ public class CalculatorPanel extends ManagerPanel implements ActionListener {
     private JLabel carbLabel;
     private JLabel sensitivityLabel;
 
+    // MODIFIES: this
+    // EFFECTS: constructs a calculator panel
     public CalculatorPanel(ManagerGUI gui) {
         super(2, 5, gui);
         currentSugarLabel = new JLabel("Current Blood Sugar (mmol/L):");
@@ -44,6 +46,8 @@ public class CalculatorPanel extends ManagerPanel implements ActionListener {
         addEverything();
     }
 
+    // MOFIFIES: this, jframe
+    // EFFECTS: adds all components to the panel
     @Override
     protected void addEverything() {
         add(currentSugarLabel);
@@ -60,6 +64,9 @@ public class CalculatorPanel extends ManagerPanel implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: uses input to calculate the amount of insulin to give and displays the result on the screen in the
+    // calculator panel
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("calculate")) {

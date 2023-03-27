@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 
+// Represents the GUI
 public class MainGUI {
 
     public static void main(String[] args) {

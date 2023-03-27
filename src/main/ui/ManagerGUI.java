@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// represents the main JFrame object where all the gui components are contained
 public class ManagerGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/logbook.json";
 
@@ -46,6 +47,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     private JTextField notesToAdd;
 
+    // MODIFIES: this
+    // EFFECTS: constructs a jframe with the main menu showing
     public ManagerGUI() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -54,6 +57,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
         createAndShowGUI();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the main jframe object
     private void createAndShowGUI() {
 
         //Create and set up the window.
@@ -70,6 +75,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the main menu (selection buttons) to the frame
     @SuppressWarnings("methodlength")
     private void createMainMenu() {
         mainMenu = new JPanel(new GridLayout(3, 2));
@@ -98,6 +105,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
     }
 
     @SuppressWarnings("methodlength")
+    // MODIFIES: this
     // EFFECTS: displays contents of logbook on frame
     public void makeLogBook(boolean initialize, String category) {
         JLabel listLabel;
@@ -150,8 +158,12 @@ public class ManagerGUI extends JFrame implements ActionListener {
         listPane.add(addNotes);
 
         frame.getContentPane().add(listPane);
+
+        SwingUtilities.updateComponentTreeUI(frame);
     }
 
+    // MODIFIES: this, book
+    // EFFECTS: adds notes to selected reading in logbook, and displays notes on screen
     private void setNotesForSelectedItem() {
         String notes = notesToAdd.getText();
         int index = logBookDisplay.getSelectedIndex();
@@ -159,12 +171,13 @@ public class ManagerGUI extends JFrame implements ActionListener {
             book.setNotesOfReadingOnTimeAndDay(book.getReadings().get(index).getTime(),
                     book.getReadings().get(index).getDate(), notes);
         } catch (ReadingNotFoundException e) {
-            // do nothing, this exception shouldn't be thrown if selecting a reading
+            // do nothing, this exception shouldn't be thrown if selecting reading from list
         }
-
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: perform the given action based on which button is pushed
     @SuppressWarnings("methodlength")
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -172,7 +185,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
             addEntryPanel = new AddEntryPanel(this);
             changePane(addEntryPanel);
         } else if (e.getActionCommand().equals("add entry to list of entries")) {
-            addEntryPanel.addEntryToLogBook(book, this);
+            addEntryPanel.addEntryToLogBook(book);
         } else if (e.getActionCommand().equals("calculate averages")) {
             statsPanel = new DisplayStatsPanel(this);
             changePane(statsPanel);
@@ -187,16 +200,12 @@ public class ManagerGUI extends JFrame implements ActionListener {
             backToMain();
         } else if (e.getActionCommand().equals("before only")) {
             makeLogBook(false, "before meal");
-            SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("after only")) {
             makeLogBook(false, "after meal");
-            SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("fasting only")) {
             makeLogBook(false, "fasting");
-            SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("all")) {
             makeLogBook(false, "none");
-            SwingUtilities.updateComponentTreeUI(frame);
         } else if (e.getActionCommand().equals("add notes")) {
             setNotesForSelectedItem();
         }
@@ -231,6 +240,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
         return book;
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes the contents of the frame to the given panel
     private void changePane(JPanel panel) {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(panel);
@@ -238,6 +249,8 @@ public class ManagerGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes the content of the frame back to the main menu and logbook display
     private void backToMain() {
         frame.getContentPane().removeAll();
         frame.setPreferredSize(new Dimension(1200, 500));

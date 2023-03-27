@@ -6,6 +6,7 @@ import model.LogBook;
 import javax.swing.*;
 import java.awt.*;
 
+// represents the window that opens when a user wants to add an entry to their logbook
 public class AddEntryPanel extends ManagerPanel {
     private JButton add;
 
@@ -35,6 +36,7 @@ public class AddEntryPanel extends ManagerPanel {
     private JLabel minLabel;
     private JLabel catLabel;
 
+    // MODIFIES: this
     // EFFECTS: opens a JPanel with places to add data to add new logbook entry
     public AddEntryPanel(ManagerGUI gui) {
         super(5, 2, gui);
@@ -61,6 +63,8 @@ public class AddEntryPanel extends ManagerPanel {
         setOpaque(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all components to the panel
     @Override
     protected void addEverything() {
         add(valueLabel);
@@ -80,7 +84,9 @@ public class AddEntryPanel extends ManagerPanel {
         add(add);
     }
 
-    public void addEntryToLogBook(LogBook book, ManagerGUI gui) {
+    // MODIFIES: logbook, jframe main menu
+    // EFFECTS: adds entry to logbook and updates logbook display to show newly added reading
+    public void addEntryToLogBook(LogBook book) {
         BloodSugarReading bsr = new BloodSugarReading(Double.parseDouble(value.getText()),
                 years.getText() + "-" + monthsToChoose.getSelectedItem() + "-" + daysToChoose.getSelectedItem(),
                 hoursToChoose.getSelectedItem() + ":" + minutesToChoose.getSelectedItem(),

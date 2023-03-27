@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LogBookTest {
     LogBook b1;
@@ -127,5 +127,33 @@ public class LogBookTest {
         } catch (ReadingNotFoundException e) {
             // pass
         }
+    }
+
+    @Test
+    public void getReadingsAsStringsTest() {
+        b2.addReading(new BloodSugarReading(7.2, "2023-02-03", "17:30", "after meal"));
+        ArrayList<String> readingsAsStringsAll = b2.getReadingsAsStrings("none");
+        assertEquals(5, readingsAsStringsAll.size());
+        ArrayList<String> readingsAsStringsFast = b2.getReadingsAsStrings("fasting");
+        assertEquals(1, readingsAsStringsFast.size());
+        String stringInList = "Value: 3.0 mmol/L\nDate: 2023-02-03\nTime: 03:30\nCategory: fasting\nNotes: ";
+        assertTrue(readingsAsStringsFast.contains(stringInList));
+        ArrayList<String> readingsAsStringsBefore = b2.getReadingsAsStrings("before meal");
+        assertEquals(3, readingsAsStringsBefore.size());
+        ArrayList<String> readingsAsStringsAfter = b2.getReadingsAsStrings("after meal");
+        assertEquals(1, readingsAsStringsAfter.size());
+        stringInList = "Value: 7.2 mmol/L\nDate: 2023-02-03\nTime: 17:30\nCategory: after meal\nNotes: ";
+        assertTrue(readingsAsStringsAfter.contains(stringInList));
+    }
+
+    @Test
+    public void calculateTimeInRangeTest() {
+        Map inRangeMap = b2.calculateTimeInRange();
+        inRangeMap.put("high", 0.0);
+        inRangeMap.put("in range", 0.75);
+        inRangeMap.put("low", 0.25);
+        assertEquals(0, b2.calculateTimeInRange().get("high"), 0.0001);
+        assertEquals(0.75, b2.calculateTimeInRange().get("in range"), 0.0001);
+        assertEquals(0.25, b2.calculateTimeInRange().get("low"), 0.0001);
     }
 }

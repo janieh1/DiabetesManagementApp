@@ -1,14 +1,8 @@
 package model;
 
 import org.json.JSONObject;
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 import java.util.Objects;
 
 // represents a blood sugar reading with a value, date, time, category, and notes.
@@ -75,11 +69,14 @@ public class BloodSugarReading {
         return date.equals(that.date) && time.equals(that.time);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(date, time);
     }
 
+    // MODIFIES: json object
+    // EFFECTS: writes the data from the reading to json file
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("value", readingValue);

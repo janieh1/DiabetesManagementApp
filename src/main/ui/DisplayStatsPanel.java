@@ -3,8 +3,8 @@ package ui;
 import model.LogBook;
 
 import javax.swing.*;
-import java.awt.*;
 
+// represents the window that pops up when a user wants to see their stats
 public class DisplayStatsPanel extends ManagerPanel {
     private JLabel overallAverage;
     private JLabel fastingAverage;
@@ -13,6 +13,8 @@ public class DisplayStatsPanel extends ManagerPanel {
     private JLabel timeInRange;
 
 
+    // MODIFES: this
+    // EFFECTS: constructs a panel to display stats
     public DisplayStatsPanel(ManagerGUI gui) {
         super(2, 1, gui);
         LogBook book = gui.getBook();
@@ -22,12 +24,14 @@ public class DisplayStatsPanel extends ManagerPanel {
                 + " mmol/L\n");
         afterMealAverage = new JLabel("After meal average: " + book.calculateAverageOfCategory("after meal")
                 + " mmol/L\n");
-        timeInRange = new JLabel("Time in Range: " + 100 * book.calulcateTimeInRange().get("in range") + "%");
+        timeInRange = new JLabel("Time in Range: " + 100 * book.calculateTimeInRange().get("in range") + "%");
         addReturnMainMenuButton();
         addEverything();
         setOpaque(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds all components to the panel
     @Override
     protected void addEverything() {
         add(overallAverage);
