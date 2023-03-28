@@ -55,8 +55,11 @@ from a file.
 # Instructions for Grader
 
 - You can generate the first required action related to adding Xs to a Y by clicking the Add Log Book Entry button
+  - You will be taken to a new panel to input information. Once done, click Add and then Return to Main Menu and the logbook will be updated with the new entry
 - You can generate the second required action related to adding Xs to a Y by clicking one of the Show _____ readings only, to show only readings from the specified category
-- You can also add notes to a reading by first selecting the reading displayed, typing in your notes, and then clicking the Add Notes button. To get the notes to show in the display, click one of the Show Readings buttons
-- You can locate my visual component by clicking on Calculate Averages
+- You can also add notes to a reading by first selecting the reading displayed, typing in your notes, and then clicking the Add Notes button. To get the notes to display in the logbook, click the refresh button
+- This project has two visual components:
+  - The refresh button uses an image of a refresh symbol rather than the word Refresh
+  - When the View Average button is clicked, you will be taken to a new panel that shows average blood sugar in each category, as well as a bar chart showing Time In Range (the percentage of readings that are either low, in range, or high)
 - You can save the state of my application by clicking Save Log Book
 - You can reload the state of my application by clicking Load Log Book

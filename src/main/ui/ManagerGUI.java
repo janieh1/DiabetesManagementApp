@@ -57,7 +57,6 @@ public class ManagerGUI extends JFrame implements ActionListener {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         book = new LogBook();
-        book.addReading(new BloodSugarReading(4.5, "2023-06-06", "14:15", "fasting"));
         createAndShowGUI();
     }
 
@@ -87,7 +86,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         b1 = new JButton("Add Log Book Entry");
         b1.setActionCommand("add entry");
         b1.addActionListener(this);
-        b2 = new JButton("Calculate Average Blood Sugars");
+        b2 = new JButton("View Average Blood Sugars");
         b2.setActionCommand("calculate averages");
         b2.addActionListener(this);
         b3 = new JButton("Calculate Insulin to Give");

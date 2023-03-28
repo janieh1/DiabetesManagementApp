@@ -35,7 +35,7 @@ public class ChartPanel extends JPanel {
         this.names.add("low");
         this.names.add("in range");
         this.names.add("high");
-        this.title = "Time in Range\n Low - " + df.format(values.get(0) * 100) + "%\n"
+        this.title = "Time in Range:\n Low - " + df.format(values.get(0) * 100) + "%\n"
                 + "In Range - " + df.format(values.get(1) * 100) + "%\n"
                 + "High - " + df.format(values.get(2) * 100) + "%";
     }
