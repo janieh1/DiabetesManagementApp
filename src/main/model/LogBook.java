@@ -13,6 +13,7 @@ public class LogBook {
     private String name;
     private ArrayList<BloodSugarReading> readings;
 
+    // MODIFIES: this
     // EFFECTS: creates new logbook with no readings in it
     public LogBook() {
         this.readings = new ArrayList<BloodSugarReading>();
@@ -28,7 +29,6 @@ public class LogBook {
         return readings;
     }
 
-    // REQUIRES:
     // MODIFIES: this
     // EFFECTS: adds blood sugar reading to logbook
     public void addReading(BloodSugarReading reading) {
@@ -178,7 +178,7 @@ public class LogBook {
         for (BloodSugarReading bsr : readings) {
             if (bsr.getValue() >= 10.1) {
                 inRange.put("high", inRange.get("high") + 1);
-            } else if ((bsr.getValue() >= 4.1) && (bsr.getValue() <= 10.0)) {
+            } else if (bsr.getValue() >= 4.1) {
                 inRange.put("in range", inRange.get("in range") + 1);
             } else {
                 inRange.put("low", inRange.get("low") + 1);

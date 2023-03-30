@@ -149,8 +149,11 @@ public class LogBookTest {
     @Test
     public void calculateTimeInRangeTest() {
         b2.addReading(new BloodSugarReading(17.2, "2023-02-03", "17:30", "after meal"));
-        assertEquals(0.2, b2.calculateTimeInRange().get("high"), 0.0001);
-        assertEquals(0.6, b2.calculateTimeInRange().get("in range"), 0.0001);
-        assertEquals(0.2, b2.calculateTimeInRange().get("low"), 0.0001);
+        b2.addReading(new BloodSugarReading(10.1, "2023-02-03", "17:30", "after meal"));
+        b2.addReading(new BloodSugarReading(4.1, "2023-02-03", "17:30", "after meal"));
+        b2.addReading(new BloodSugarReading(4.0, "2023-02-03", "17:30", "after meal"));
+        assertEquals(0.25, b2.calculateTimeInRange().get("high"), 0.0001);
+        assertEquals(0.5, b2.calculateTimeInRange().get("in range"), 0.0001);
+        assertEquals(0.25, b2.calculateTimeInRange().get("low"), 0.0001);
     }
 }

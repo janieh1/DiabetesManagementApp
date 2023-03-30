@@ -16,7 +16,7 @@ public class DisplayStatsPanel extends ManagerPanel {
 
 
 
-    // MODIFES: this
+    // MODIFIES: this
     // EFFECTS: constructs a panel to display stats
     public DisplayStatsPanel(ManagerGUI gui) {
         super(2, 1, gui);

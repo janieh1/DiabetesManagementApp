@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 // represents the window that opens when a user wants to calculate how much insulin to give themselves
 public class CalculatorPanel extends ManagerPanel implements ActionListener {
-    private InsulinCalculator calculator;
     private JButton calculate;
 
     private JTextField currentBloodSugar;
@@ -70,7 +69,7 @@ public class CalculatorPanel extends ManagerPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("calculate")) {
-            calculator = new InsulinCalculator(Double.parseDouble(currentBloodSugar.getText()),
+            InsulinCalculator calculator = new InsulinCalculator(Double.parseDouble(currentBloodSugar.getText()),
                     Double.parseDouble(carbs.getText()), Integer.parseInt(base.getText()),
                     Double.parseDouble(insulinCarbRatio.getText()), Double.parseDouble(insulinSensitivity.getText()));
             int insulinToGive = calculator.calculateInsulin();

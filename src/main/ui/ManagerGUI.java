@@ -1,12 +1,9 @@
 package ui;
 
 import exceptions.ReadingNotFoundException;
-import model.BloodSugarReading;
 import model.LogBook;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,34 +22,16 @@ public class ManagerGUI extends JFrame implements ActionListener {
     private JList logBookDisplay;
 
     private AddEntryPanel addEntryPanel;
-    private CalculatorPanel calculatorPanel;
-    private DisplayStatsPanel statsPanel;
 
     private static JFrame frame;
 
     private JPanel mainMenu;
     private JPanel listPane;
 
-    private static JButton b1; // add entry
-    private static JButton b2; // calculate averages and display graph
-    private static JButton b3; // open insulin calculator
-    private static JButton b4; // save
-    private static JButton b5; // load
-    private static JButton refresh;
-
-    private static JButton beforeOnly;
-    private static JButton afterOnly;
-    private static JButton fastingOnly;
-    private static JButton allReadings;
-    private static JButton addNotes;
-    private static JLabel addNotesLabel;
-
     private JTextField notesToAdd;
 
-    private ChartPanel chart;
-
     // MODIFIES: this
-    // EFFECTS: constructs a jframe with the main menu showing
+    // EFFECTS: constructs a JFrame with the main menu showing
     public ManagerGUI() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -60,8 +39,16 @@ public class ManagerGUI extends JFrame implements ActionListener {
         createAndShowGUI();
     }
 
+    public LogBook getBook() {
+        return book;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
     // MODIFIES: this
-    // EFFECTS: sets up the main jframe object
+    // EFFECTS: sets up the main JFrame object
     private void createAndShowGUI() {
 
         //Create and set up the window.
@@ -83,37 +70,40 @@ public class ManagerGUI extends JFrame implements ActionListener {
     @SuppressWarnings("methodlength")
     private void createMainMenu() {
         mainMenu = new JPanel(new GridLayout(3, 2));
-        b1 = new JButton("Add Log Book Entry");
+
+        JButton b1 = new JButton("Add Log Book Entry");
         b1.setActionCommand("add entry");
         b1.addActionListener(this);
-        b2 = new JButton("View Average Blood Sugars");
+
+        JButton b2 = new JButton("View Average Blood Sugars");
         b2.setActionCommand("calculate averages");
         b2.addActionListener(this);
-        b3 = new JButton("Calculate Insulin to Give");
+
+        JButton b3 = new JButton("Calculate Insulin to Give");
         b3.setActionCommand("calculate insulin");
         b3.addActionListener(this);
-        b4 = new JButton("Save Log Book to File");
+
+        JButton b4 = new JButton("Save Log Book to File");
         b4.setActionCommand("save to file");
         b4.addActionListener(this);
-        b5 = new JButton("Load Log Book from File");
+
+        JButton b5 = new JButton("Load Log Book from File");
         b5.setActionCommand("load from file");
         b5.addActionListener(this);
+
+        ImageIcon refIcon = new ImageIcon("./data/Refresh_icon.png");
+        Image image = refIcon.getImage(); // transform it
+        Image newImage = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        refIcon = new ImageIcon(newImage);  // transform it back
+        JButton refresh = new JButton(refIcon);
+        refresh.setActionCommand("refresh");
+        refresh.addActionListener(this);
+
         mainMenu.add(b1);
         mainMenu.add(b2);
         mainMenu.add(b3);
         mainMenu.add(b4);
         mainMenu.add(b5);
-
-
-        ImageIcon refIcon = new ImageIcon("./data/Refresh_icon.png");
-        Image image = refIcon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-        refIcon = new ImageIcon(newimg);  // transform it back
-        refresh = new JButton(refIcon);
-        refresh.setActionCommand("refresh");
-        refresh.addActionListener(this);
-
-
         mainMenu.add(refresh);
 
         frame.getContentPane().add(mainMenu);
@@ -131,7 +121,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
         }
         listPane = new JPanel(new GridLayout(2, 5));
         listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
-        if (category == "none") {
+        if (category.equals("none")) {
             listLabel = new JLabel("My LogBook:");
         } else {
             listLabel = new JLabel("My LogBook (" + category + "):");
@@ -146,22 +136,22 @@ public class ManagerGUI extends JFrame implements ActionListener {
         listPane.add(Box.createRigidArea(new Dimension(5,5)));
         listPane.add(listScroller);
 
-        beforeOnly = new JButton("Show before meal readings only");
+        JButton beforeOnly = new JButton("Show before meal readings only");
         beforeOnly.setActionCommand("before only");
         beforeOnly.addActionListener(this);
-        afterOnly = new JButton("Show after meal readings only");
+        JButton afterOnly = new JButton("Show after meal readings only");
         afterOnly.setActionCommand("after only");
         afterOnly.addActionListener(this);
-        fastingOnly = new JButton("Show fasting readings only");
+        JButton fastingOnly = new JButton("Show fasting readings only");
         fastingOnly.setActionCommand("fasting only");
         fastingOnly.addActionListener(this);
-        allReadings = new JButton("Show all readings");
+        JButton allReadings = new JButton("Show all readings");
         allReadings.setActionCommand("all");
         allReadings.addActionListener(this);
-        addNotes = new JButton("Add Notes");
+        JButton addNotes = new JButton("Add Notes");
         addNotes.setActionCommand("add notes");
         addNotes.addActionListener(this);
-        addNotesLabel = new JLabel("Notes to add:");
+        JLabel addNotesLabel = new JLabel("Notes to add:");
         notesToAdd = new JTextField(20);
 
         listPane.add(beforeOnly);
@@ -202,11 +192,11 @@ public class ManagerGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("add entry to list of entries")) {
             addEntryPanel.addEntryToLogBook(book);
         } else if (e.getActionCommand().equals("calculate averages")) {
-            statsPanel = new DisplayStatsPanel(this);
+            DisplayStatsPanel statsPanel = new DisplayStatsPanel(this);
             changePane(statsPanel);
             displayBarChart();
         } else if (e.getActionCommand().equals("calculate insulin")) {
-            calculatorPanel = new CalculatorPanel(this);
+            CalculatorPanel calculatorPanel = new CalculatorPanel(this);
             changePane(calculatorPanel);
         } else if (e.getActionCommand().equals("save to file")) {
             saveLogBook();
@@ -255,10 +245,6 @@ public class ManagerGUI extends JFrame implements ActionListener {
         }
     }
 
-    public LogBook getBook() {
-        return book;
-    }
-
     // MODIFIES: this
     // EFFECTS: changes the contents of the frame to the given panel
     private void changePane(JPanel panel) {
@@ -279,14 +265,10 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
-
     // MODIFIES: this
     // EFFECTS: shows bar chart
     public void displayBarChart() {
-        chart = new ChartPanel(this);
+        ChartPanel chart = new ChartPanel(this);
         chart.showBarChart();
     }
 

@@ -37,10 +37,17 @@
         },
         {
             "date": "2023-03-21",
-            "notes": "",
+            "notes": "adding notes",
             "time": "07:00",
             "category": "after meal",
             "value": 4
+        },
+        {
+            "date": "2023-01-05",
+            "notes": "",
+            "time": "00:00",
+            "category": "fasting",
+            "value": 3.4
         }
     ],
     "name": "My Log Book"

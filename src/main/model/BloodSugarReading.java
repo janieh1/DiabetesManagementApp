@@ -70,6 +70,7 @@ public class BloodSugarReading {
     }
 
 
+    // EFFECTS: creates hascode for reading
     @Override
     public int hashCode() {
         return Objects.hash(date, time);

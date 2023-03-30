@@ -54,6 +54,7 @@ from a file.
 
 # Instructions for Grader
 
+- To access the GUI, run the MainGUI class
 - You can generate the first required action related to adding Xs to a Y by clicking the Add Log Book Entry button
   - You will be taken to a new panel to input information. Once done, click Add and then Return to Main Menu and the logbook will be updated with the new entry
 - You can generate the second required action related to adding Xs to a Y by clicking one of the Show _____ readings only, to show only readings from the specified category

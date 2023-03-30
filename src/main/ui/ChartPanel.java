@@ -13,19 +13,22 @@ import java.util.List;
 
 /**
  * Code here is modelled after Simple bar chart demo at
- * http://www.java2s.com/Code/Java/2D-Graphics-GUI/Simplebarchart.htm
+ * <a href="http://www.java2s.com/Code/Java/2D-Graphics-GUI/Simplebarchart.htm">...</a>
  */
-public class ChartPanel extends JPanel {
-    private LogBook book;
-    private ManagerGUI gui;
-    private List<Double> values;
-    private List<String> names;
-    private String title;
-    private ArrayList<Color> colours;
-    DecimalFormat df = new DecimalFormat("#.##");
 
+// represents the bar chart that is displayed in the DisplayStatsPanel
+public class ChartPanel extends JPanel {
+    private final ManagerGUI gui;
+    private List<Double> values;
+    private final List<String> names;
+    private String title;
+    DecimalFormat df = new DecimalFormat("#.##");
+    private final ArrayList<Color> colours = new ArrayList<Color>();
+
+    // MODIFIES: this
+    // EFFECTS: constructs new bar chart with categories and title
     public ChartPanel(ManagerGUI gui) {
-        this.book = gui.getBook();
+        LogBook book = gui.getBook();
         this.gui = gui;
         this.values = new ArrayList<Double>();
         this.values.add(book.calculateTimeInRange().get("low"));
@@ -41,25 +44,13 @@ public class ChartPanel extends JPanel {
     }
 
     @SuppressWarnings("methodlength")
+    // MODIFIES: this
+    // EFFECTS: draws bars on bar chart
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        colours = new ArrayList<Color>();
         colours.add(Color.red);
         colours.add(Color.green);
         colours.add(Color.yellow);
-        if (values == null || values.size() == 0) {
-            return;
-        }
-        double minValue = 0;
-        double maxValue = 0;
-        for (int i = 0; i < values.size(); i++) {
-            if (minValue > values.get(i)) {
-                minValue = values.get(i);
-            }
-            if (maxValue < values.get(i)) {
-                maxValue = values.get(i);
-            }
-        }
 
         Dimension d = getSize();
         int clientWidth = d.width;
@@ -78,23 +69,14 @@ public class ChartPanel extends JPanel {
         g.drawString(title, x, y);
         int top = titleFontMetrics.getHeight();
         int bottom = labelFontMetrics.getHeight();
-        if (maxValue == minValue) {
-            return;
-        }
-        double scale = (clientHeight - top - bottom) / (maxValue - minValue);
+        double scale = (clientHeight - top - bottom);
         y = clientHeight - labelFontMetrics.getDescent();
         g.setFont(labelFont);
 
         for (int i = 0; i < values.size(); i++) {
             int valueX = i * barWidth + 1;
-            int valueY = top;
             int height = (int) (values.get(i) * scale);
-            if (values.get(i) >= 0) {
-                valueY += (int) ((maxValue - values.get(i)) * scale);
-            } else {
-                valueY += (int) (maxValue * scale);
-                height = -height;
-            }
+            int valueY = (int) (top + ((1 - values.get(i)) * scale));
 
             g.setColor(colours.get(i));
             g.fillRect(valueX, valueY, barWidth - 2, height);
@@ -106,6 +88,8 @@ public class ChartPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays the bar chart on the panel
     public void showBarChart() {
         JFrame f = gui.getFrame();
         f.getContentPane().add(new ChartPanel(gui));
