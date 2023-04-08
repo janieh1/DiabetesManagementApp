@@ -31,8 +31,10 @@ public class LogBook {
 
     // MODIFIES: this
     // EFFECTS: adds blood sugar reading to logbook
+    // TODO: log event when new reading is added
     public void addReading(BloodSugarReading reading) {
         readings.add(reading);
+        EventLog.getInstance().logEvent(new Event("Added reading to logbook"));
     }
 
     // REQUIRES: category is one of "before meal", "fasting", or "after meal"
@@ -44,6 +46,7 @@ public class LogBook {
                 readingsInCategory.add(bsr);
             }
         }
+
         return readingsInCategory;
     }
 
@@ -107,6 +110,7 @@ public class LogBook {
     // MODIFIES: blood sugar reading
     // EFFECTS: adds notes to a reading given the time and date. if no reading exists,
     // throw new ReadingNotFoundException
+    // TODO: log event when notes are added to new reading
     public void setNotesOfReadingOnTimeAndDay(String time, String date, String notes) throws ReadingNotFoundException {
         BloodSugarReading reading = null;
         for (BloodSugarReading bsr : readings) {
@@ -119,6 +123,8 @@ public class LogBook {
             throw new ReadingNotFoundException("No reading at that time and date exists.");
         } else {
             reading.setNotes(notes);
+            EventLog.getInstance().logEvent(new Event("Added notes to reading on " + date + "at " + time
+                    + ": " + notes));
         }
     }
 
@@ -144,6 +150,7 @@ public class LogBook {
 
     // EFFECTS: returns the readings in given category in the logbook as one string. if category == "none", all readings
     //          will be shown
+    // TODO: log event when we get reading as string from certain category
     public ArrayList<String> getReadingsAsStrings(String category) {
         ArrayList<String> readingsAsStrings = new ArrayList<String>();
         if (category == "none") {
@@ -163,7 +170,10 @@ public class LogBook {
                         + "\n" + "Notes: " + bsr.getNotes();
                 readingsAsStrings.add(stringToAdd);
             }
+            EventLog.getInstance().logEvent(new Event("Filtered logbook to show readings from " + category
+                    + " category only"));
         }
+
         return readingsAsStrings;
     }
 

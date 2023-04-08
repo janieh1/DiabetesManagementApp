@@ -1,18 +1,20 @@
 package ui;
 
 import exceptions.ReadingNotFoundException;
+import model.Event;
+import model.EventLog;
 import model.LogBook;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // represents the main JFrame object where all the gui components are contained
-public class ManagerGUI extends JFrame implements ActionListener {
+public class ManagerGUI extends JFrame implements ActionListener, WindowListener, WindowFocusListener,
+        WindowStateListener {
     private static final String JSON_STORE = "./data/logbook.json";
 
     private JsonWriter jsonWriter;
@@ -53,7 +55,7 @@ public class ManagerGUI extends JFrame implements ActionListener {
 
         //Create and set up the window.
         frame = new JFrame("Diabetes Manager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1200, 500));
         frame.setLayout(new GridLayout());
 
@@ -63,6 +65,9 @@ public class ManagerGUI extends JFrame implements ActionListener {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        frame.addWindowListener(this);
+        frame.addWindowFocusListener(this);
+        frame.addWindowStateListener(this);
     }
 
     // MODIFIES: this
@@ -272,4 +277,62 @@ public class ManagerGUI extends JFrame implements ActionListener {
         chart.showBarChart();
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        printLog(EventLog.getInstance());
+        System.exit(0);
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        System.out.println("deactivated");
+
+    }
+
+    @Override
+    public void windowGainedFocus(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowLostFocus(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowStateChanged(WindowEvent e) {
+
+    }
+
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.getDescription());
+        }
+    }
 }

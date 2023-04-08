@@ -1,53 +1,18 @@
 {
     "readings": [
         {
-            "date": "2023-06-06",
+            "date": "2023-01-01",
             "notes": "",
-            "time": "14:15",
+            "time": "00:00",
             "category": "fasting",
             "value": 4.5
         },
         {
-            "date": "2023-03-26",
-            "notes": "forgot to take insulin!!! :((((( ",
-            "time": "16:20",
-            "category": "after meal",
-            "value": 19.3
-        },
-        {
-            "date": "2023-03-26",
-            "notes": "",
-            "time": "16:20",
-            "category": "after meal",
-            "value": 9.2
-        },
-        {
-            "date": "2023-03-28",
-            "notes": "adding notes now!!",
-            "time": "15:40",
-            "category": "after meal",
-            "value": 6.7
-        },
-        {
-            "date": "2023-03-04",
-            "notes": "this is low",
-            "time": "00:10",
-            "category": "fasting",
-            "value": 3.1
-        },
-        {
-            "date": "2023-03-21",
-            "notes": "adding notes",
-            "time": "07:00",
-            "category": "after meal",
-            "value": 4
-        },
-        {
-            "date": "2023-01-05",
+            "date": "2023-01-01",
             "notes": "",
             "time": "00:00",
             "category": "fasting",
-            "value": 3.4
+            "value": 4.4
         }
     ],
     "name": "My Log Book"
