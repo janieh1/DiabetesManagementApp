@@ -110,3 +110,14 @@ Added notes to reading on 2023-04-10 at 16:00: testing
 Wed Apr 12 12:44:42 PDT 2023
 
 Showed all Readings in LogBook
+
+# Phase 4: Task 3
+
+I think I could do some refactoring in the UI package. I have many panels (DisplayStatsPanel, CalculatorPanel, and AddEntryPanel) that extend the abstract class ManagerPanel.
+However, at any time, only one of these panels would be showing on the screen - they each represent a different panel/page you would go to as a result of selecting an option from the main menu.
+Instead of having one panel for each menu selection, I could have the same panel showing, and have multiple methods within that panel's class that change the makeup of that panel. I'm not sure if doing this would have much of an advantage or disadvantage, but it is something to think about.
+
+I also have two Main methods - MainGUI to run the GUI and MainConsoleUI to run the console version of the application. I could combine these to make one main method that maybe takes a parameter (e.g., console or gui) to determine which version of the application to run.
+Also, from those two main methods, I have the ManagerGUI and the DiabetesManager, which both serve as the main menu/starting point of the application. They have many similarities in terms of their functionality. I could probably alter them to make the ManagerGUI class extend the DiabetesManager class,
+so that I would maybe just have to add the functionality to get the GUI working. Another somewhat similar option would be to have an abstract class as a supertype to both these classes, where they would then have different implementations of the same methods. I think this would
+make sense because again, both classes represent the same thing in the app, but one is for the console UI and the other for the GUI.
