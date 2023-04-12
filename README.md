@@ -64,3 +64,49 @@ from a file.
   - When the View Average button is clicked, you will be taken to a new panel that shows average blood sugar in each category, as well as a bar chart showing Time In Range (the percentage of readings that are either low, in range, or high)
 - You can save the state of my application by clicking Save Log Book
 - You can reload the state of my application by clicking Load Log Book
+
+# Phase 4: Task 2
+
+Wed Apr 12 12:43:12 PDT 2023
+
+Showed all Readings in LogBook
+
+Wed Apr 12 12:43:26 PDT 2023
+
+Added reading to logbook
+
+Wed Apr 12 12:43:37 PDT 2023
+
+Added reading to logbook
+
+Wed Apr 12 12:43:51 PDT 2023
+
+Added reading to logbook
+
+Wed Apr 12 12:44:07 PDT 2023
+
+Added reading to logbook
+
+Wed Apr 12 12:44:20 PDT 2023
+
+Added reading to logbook
+
+Wed Apr 12 12:44:22 PDT 2023
+
+Showed all Readings in LogBook
+
+Wed Apr 12 12:44:25 PDT 2023
+
+Filtered logbook to show readings from fasting category only
+
+Wed Apr 12 12:44:27 PDT 2023
+
+Showed all Readings in LogBook
+
+Wed Apr 12 12:44:40 PDT 2023
+
+Added notes to reading on 2023-04-10 at 16:00: testing
+
+Wed Apr 12 12:44:42 PDT 2023
+
+Showed all Readings in LogBook

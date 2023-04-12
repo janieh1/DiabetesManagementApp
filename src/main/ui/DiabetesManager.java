@@ -1,9 +1,7 @@
 package ui;
 
 import exceptions.ReadingNotFoundException;
-import model.BloodSugarReading;
-import model.InsulinCalculator;
-import model.LogBook;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -62,6 +60,7 @@ public class DiabetesManager {
             } else if (operation.equals("7")) {
                 loadLogBook();
             } else if (operation.equals("8")) {
+                printLog(EventLog.getInstance());
                 break;
             }
         }
@@ -168,5 +167,10 @@ public class DiabetesManager {
         }
     }
 
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
+    }
 
 }

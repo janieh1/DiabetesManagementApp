@@ -332,7 +332,7 @@ public class ManagerGUI extends JFrame implements ActionListener, WindowListener
 
     public void printLog(EventLog el) {
         for (Event next : el) {
-            System.out.println(next.getDescription());
+            System.out.println(next.toString());
         }
     }
 }
